@@ -8,24 +8,26 @@ namespace EmployeeManagementSystem
 {
     public class MainView
     {
+        void menuLine(int n)
+        {
+            Console.Write("|");
+            Console.Write(string.Concat(Enumerable.Repeat("-", n-1)));
+            Console.Write("|");
+            Console.Write(string.Concat(Enumerable.Repeat("-", n-1)));
+            Console.Write("|");
+            Console.Write(string.Concat(Enumerable.Repeat("-", n-1)));
+            Console.Write("|");
+            Console.Write(string.Concat(Enumerable.Repeat("-", n-2)));
+            Console.WriteLine("|");
+        }
         public void Show()
         {
-            for (int i = 0; i < 120; i++)
-            {
-                Console.Write("*");
-            }
 
-            Console.WriteLine();
+            menuLine(30);
 
-            Console.Write("* 1. Manage employee          ");
-            Console.Write("* 2. Track attendance         ");
-            Console.Write("* 3. Manage payroll           ");
-            Console.WriteLine("* 4. Manage performance      *");
+            Console.WriteLine("| 1. Manage employee          | 2. Track attendance         | 3. Manage payroll           | 4. Manage performance      |");
 
-            for (int i = 0; i < 120; i++)
-            {
-                Console.Write("*");
-            }
+            menuLine(30);
         }
     }
 }
