@@ -16,5 +16,6 @@ namespace EmployeeManagementSystem
         }
 
         public Tasks[] GetAllTasks() => tasksSet;
+
     }
 }
