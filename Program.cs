@@ -10,6 +10,7 @@ namespace EmployeeManagementSystem
     {
         public static MainView mainView;
         public static TaskList tasksList;
+        public static EmployeeList employeeList;
         static void Main(string[] args)
         {
             Console.Title = "Employee Management System (version 1.0.0.0)";
@@ -32,7 +33,6 @@ namespace EmployeeManagementSystem
             }
             mainView.Show();
             Console.WriteLine();
-            //tasks.Show();
         }
     }
 }

@@ -8,6 +8,9 @@ namespace EmployeeManagementSystem
 {
     internal class Auth
     {
+        private bool isLoggedIn = false;
+        private static string currentUser;
+
         private static Dictionary<string, string> _users = new Dictionary<string, string>()
     {
         {"admin", "admin"},
@@ -17,11 +20,11 @@ namespace EmployeeManagementSystem
 
         public static bool Login()
         {
-            Console.Write("Please enter your username:");
+            Console.Write("Please enter your username: ");
             string username = Console.ReadLine().Trim().ToLower();
             Console.WriteLine(Environment.NewLine);
 
-            Console.Write("Please enter your password:");
+            Console.Write("Please enter your password: ");
             string password = Console.ReadLine().Trim();
             Console.WriteLine(Environment.NewLine);
 
@@ -29,6 +32,7 @@ namespace EmployeeManagementSystem
             {
                 System.Threading.Thread.Sleep(800);
                 Console.Write($"Welcome, {username}!");
+                currentUser = username;
                 Console.WriteLine(Environment.NewLine);
                 return true;
             }
@@ -37,6 +41,28 @@ namespace EmployeeManagementSystem
                 System.Threading.Thread.Sleep(800);
                 Console.WriteLine("Invalid username or password.");
                 Console.WriteLine(Environment.NewLine);
+                return false;
+            }
+        }
+
+        public void Logout()
+        {
+            isLoggedIn = false;
+            currentUser = null;
+        }
+
+        public bool IsLoggedIn()
+        {
+            return isLoggedIn;
+        }
+
+        public static bool isUserAdmin()
+        {
+            if (currentUser == "admin")
+            {
+                return true;
+            } else
+            {
                 return false;
             }
         }

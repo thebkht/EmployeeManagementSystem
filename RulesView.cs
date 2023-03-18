@@ -35,7 +35,7 @@ namespace EmployeeManagementSystem
             string rule4 = ">>> All attendance records must be accurate and up-to-date.\n";
             DisplayWrappedText(WordWrap(rule4, 114));
 
-            Console.WriteLine("[Press ENTER to continue...]");
+            Console.Write("[Press ENTER to continue...]");
             if (Regex.IsMatch(Console.ReadLine(), @"\.*"))
             {
                 Console.WriteLine(Environment.NewLine);

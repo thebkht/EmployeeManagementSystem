@@ -9,14 +9,15 @@ namespace EmployeeManagementSystem
     {
         public string Name { get; set; }
         public int Age { get; set; }
+        public double HourlyRate { get; set; }
         public List<Tasks> Tasks { get; set; }
         public int CompletedTasks { get; set; }
         public int UncompletedTasks { get; set; }
 
-        public Employee(string name, int age)
+        public Employee(string name, double rate)
         {
             Name = name;
-            Age = age;
+            HourlyRate = rate;
             Tasks = new List<Tasks>();
             CompletedTasks = 0;
             UncompletedTasks = 0;
