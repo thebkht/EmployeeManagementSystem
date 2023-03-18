@@ -18,12 +18,18 @@ namespace EmployeeManagementSystem
             {
                 new Tasks("Finish project", new DateTime(2023, 3, 31, 12, 35, 0), "Bakhtiyor Yusupov"),
                 new Tasks("Finish project2", new DateTime(2023, 3, 16, 12, 35, 0), "Bakhtiyor Yusupov"),
-                new Tasks("Finish project4", new DateTime(2023, 3, 16, 12, 35, 0), "Bakhtiyor Yusupov")
+                new Tasks("Finish project4", new DateTime(2023, 3, 19, 12, 39, 0), "Bakhtiyor Yusupov")
             };   
 
             mainView = new MainView();
             tasksList = new TaskList(tasks);
 
+            RulesView rules = new RulesView();
+            rules.Show();
+            while (!Auth.Login())
+            {
+               
+            }
             mainView.Show();
             Console.WriteLine();
             //tasks.Show();

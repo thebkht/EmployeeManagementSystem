@@ -43,7 +43,7 @@ namespace EmployeeManagementSystem
 
             menuLine(30);
 
-            Console.WriteLine("\nTasks for Today:\n");
+            Console.WriteLine($"\nTasks for {DateTime.Today.ToString("dddd")}:\n");
 
             var sortedList = Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date);
 
