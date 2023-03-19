@@ -8,48 +8,35 @@ namespace EmployeeManagementSystem
 {
     internal class EmployeeList
     {
-        Employee[] employeeSet;
+        List<Employee> employeeSet;
 
-        public EmployeeList(Employee[] employee)
+        public EmployeeList(List<Employee> employee)
         {
             employeeSet = employee;
         }
 
         public void AddEmployee(Employee employee)
         {
-            Employee[] newEmployees = new Employee[employeeSet.Length + 1];
-
-            for (int i = 0; i < employeeSet.Length; i++)
-            {
-                newEmployees[i] = employeeSet[i];
-            }
-
-            newEmployees[employeeSet.Length] = employee;
-
-            employeeSet = newEmployees;
+            employeeSet.Add(employee);
         }
 
-        public void RemoveEmployee(int index)
+        public void RemoveEmployee(Employee employee)
         {
-            Employee[] newEmployees = new Employee[employeeSet.Length - 1];
-
-            for (int i = 0; i < index; i++)
-            {
-                newEmployees[i] = employeeSet[i];
-            }
-            for (int i = index + 1; i < employeeSet.Length; i++)
-            {
-                newEmployees[i - 1] = employeeSet[i];
-            }
-
-            employeeSet = newEmployees;
+            employeeSet.Remove(employee);
         }
 
-        public Employee GetEmployee(int index)
+        public Employee GetEmployee(string id)
         {
-            return employeeSet[index];
+            foreach (Employee employee in employeeSet)
+            {
+                if (employee.Id == id)
+                {
+                    return employee;
+                }
+            }
+            return null;
         }
 
-        public Employee[] GetAllEmployees() => employeeSet;
+        public List<Employee> GetAllEmployees() => employeeSet;
     }
 }

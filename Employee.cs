@@ -8,7 +8,7 @@ namespace EmployeeManagementSystem
     public class Employee
     {
         public string Name { get; set; }
-        public int Age { get; set; }
+        public string Id { get; set; }
         public double HourlyRate { get; set; }
         public List<Tasks> Tasks { get; set; }
         public int CompletedTasks { get; set; }

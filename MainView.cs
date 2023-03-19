@@ -132,7 +132,7 @@ namespace EmployeeManagementSystem
                     case "3":
                         Console.WriteLine("---- Update Employee ----");
                         Console.Write("Enter employee ID: ");
-                        int id = int.Parse(Console.ReadLine());
+                        string id = Console.ReadLine();
                         Employee empToUpdate = Program.employeeList.GetEmployee(id);
                         if (empToUpdate != null)
                         {
@@ -160,7 +160,7 @@ namespace EmployeeManagementSystem
                     case "4":
                         Console.WriteLine("---- Delete Employee ----");
                         Console.Write("Enter employee ID: ");
-                        int idToDelete = int.Parse(Console.ReadLine());
+                        string idToDelete = Console.ReadLine();
                         Employee empToDelete = Program.employeeList.GetEmployee(idToDelete);
                         if (empToDelete != null)
                         {
