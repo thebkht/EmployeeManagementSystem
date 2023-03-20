@@ -49,6 +49,7 @@ namespace EmployeeManagementSystem
             switch(choise)
             {
                 case 1:
+                    ManageEmployees();
                     break;
                 case 2:
                     break;
