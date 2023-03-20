@@ -8,24 +8,54 @@ namespace EmployeeManagementSystem
 {
     internal class EmployeeList
     {
-        List<Employee> employeeSet;
+        Employee[] employeeSet;
+        int size;
 
-        public EmployeeList(List<Employee> employee)
+        public EmployeeList(Employee[] employee)
         {
             employeeSet = employee;
+            size = 0;
         }
 
-        public void AddEmployee(Employee employee)
+        public void Add(Employee employee)
         {
-            employeeSet.Add(employee);
+            if (size == employeeSet.Length)
+            {
+                throw new Exception("Employee list is full");
+            }
+
+            size = employeeSet.Length;
+
+            employeeSet[size] = employee;
+            /*size++;*/
         }
 
-        public void RemoveEmployee(Employee employee)
+        public void Remove(Employee employee)
         {
-            employeeSet.Remove(employee);
+            int index = -1;
+            for (int i = 0; i < size; i++)
+            {
+                if (employeeSet[i].Equals(employee))
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index == -1)
+            {
+                throw new Exception("Employee not found in list");
+            }
+
+            for (int i = index; i < size - 1; i++)
+            {
+                employeeSet[i] = employeeSet[i + 1];
+            }
+
+            size--;
         }
 
-        public Employee GetEmployee(string id)
+        public Employee GetEmployee(int id)
         {
             foreach (Employee employee in employeeSet)
             {
@@ -37,6 +67,7 @@ namespace EmployeeManagementSystem
             return null;
         }
 
-        public List<Employee> GetAllEmployees() => employeeSet;
+        public Employee[] GetAllEmployees() => employeeSet;
+
     }
 }

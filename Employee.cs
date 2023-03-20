@@ -2,26 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EmployeeManagementSystem
 {
     public class Employee
     {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
-        public string Id { get; set; }
         public double HourlyRate { get; set; }
-        public List<Tasks> Tasks { get; set; }
+        public List<Task> AssignedTasks { get; set; }
         public int CompletedTasks { get; set; }
         public int UncompletedTasks { get; set; }
 
-        public Employee(string name, double rate)
+        public Employee(int id, string username, string password, string name, double rate)
         {
+            Id = id;
+            Username = username;
+            Password = password;
             Name = name;
             HourlyRate = rate;
-            Tasks = new List<Tasks>();
+            AssignedTasks = new List<Task>();
             CompletedTasks = 0;
             UncompletedTasks = 0;
         }
+
+        p/*ublic Employee(string name, double rate)
+        {
+            Name = name;
+            HourlyRate = rate;
+        }*/
 
         public void Display()
         {

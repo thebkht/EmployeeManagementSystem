@@ -11,11 +11,9 @@ namespace EmployeeManagementSystem
         private bool isLoggedIn = false;
         private static string currentUser;
 
-        private static Dictionary<string, string> _users = new Dictionary<string, string>()
+        private static Dictionary<string, string> users = new Dictionary<string, string>()
     {
         {"admin", "admin"},
-        {"employee1", "password1"},
-        {"employee2", "password2"}
     };
 
         public static bool Login()
@@ -28,21 +26,23 @@ namespace EmployeeManagementSystem
             string password = Console.ReadLine().Trim();
             Console.WriteLine(Environment.NewLine);
 
-            if (_users.ContainsKey(username) && _users[username] == password)
+            if (users.ContainsKey(username) && users[username] == password)
             {
-                System.Threading.Thread.Sleep(800);
-                Console.Write($"Welcome, {username}!");
                 currentUser = username;
-                Console.WriteLine(Environment.NewLine);
                 return true;
             }
-            else
+
+            // Check if the username and password match any employee in the employee list
+            foreach (Employee employee in Program.employeeList.GetAllEmployees())
             {
-                System.Threading.Thread.Sleep(800);
-                Console.WriteLine("Invalid username or password.");
-                Console.WriteLine(Environment.NewLine);
-                return false;
+                if (employee.Username == username && employee.Password == password)
+                {
+                    return true;
+                }
             }
+
+            // If the username and password do not match any admin or employee, authentication fails
+            return false;
         }
 
         public void Logout()
