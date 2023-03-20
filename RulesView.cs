@@ -22,7 +22,7 @@ namespace EmployeeManagementSystem
             DisplayWrappedText(WordWrap(theGoal, 114));
 
             Console.WriteLine("Rules:\n");
-            
+
             string rule1 = ">>> Only authorized personnel are allowed to access this program.\n";
             DisplayWrappedText(WordWrap(rule1, 114));
 

@@ -115,9 +115,8 @@ namespace EmployeeManagementSystem
                     string name = Console.ReadLine();
                     Console.Write("Enter employee hourly rate: ");
                     double rate = double.Parse(Console.ReadLine());
-                    var employeeToAdd = new Employee(id, username, password, name, rate);
-                    Program.employeeList = new EmployeeList(employeeToAdd);
-                    Console.WriteLine("Employee added successfully!");
+                    Console.WriteLine($"Password for this employee: {password}");
+                    Program.employeeList.GetAllEmployees().Add(new Employee(id, username, password, name, rate));
                     break;
                 case 3:
                     Console.WriteLine("---- Update Employee ----");
@@ -154,7 +153,7 @@ namespace EmployeeManagementSystem
                     Employee empToDelete = Program.employeeList.GetEmployee(idToDelete);
                     if (empToDelete != null)
                     {
-                        Program.employeeList.Remove(empToDelete);
+                        Program.employeeList.GetAllEmployees().Remove(empToDelete);
                         Console.WriteLine("Employee deleted successfully!");
                     }
                     else

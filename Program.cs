@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,29 +16,19 @@ namespace EmployeeManagementSystem
         {
             Console.Title = "Employee Management System (version 1.0.0.0)";
 
-            var tasks = new[]
-            {
-                new Tasks("Finish project", new DateTime(2023, 3, 31, 12, 35, 0), "Bakhtiyor Yusupov"),
-                new Tasks("Finish project2", new DateTime(2023, 3, 16, 12, 35, 0), "Bakhtiyor Yusupov"),
-                new Tasks("Finish project4", new DateTime(2023, 3, 19, 12, 39, 0), "Bakhtiyor Yusupov")
-            };
+            /*employeeList.GetAllEmployees().Add(new Employee(0, "employee1", "12345678", "Bakhtiyor", 10.0));
 
-            var employees = new[]
-            {
-                new Employee(0, "employee1", "password1", "John", 10.0),
-                new Employee(1, "employee2", "12345678", "Komron", 12.5)
-            };
+            Employee assignedEmployee = Program.employeeList.GetEmployee(0);
+            tasksList.GetAllTasks().Add(new Tasks("Finish project", new DateTime(2023, 3, 31, 12, 35, 0), assignedEmployee.Name));*/
 
-            mainView = new MainView();
-            tasksList = new TaskList(tasks);
-            employeeList = new EmployeeList(employees);
+            mainView = new();
 
             /*mainView.ManageEmployees();*/
             RulesView rules = new RulesView();
             rules.Show();
             while (!Auth.Login())
             {
-               
+
             }
             mainView.Show();
             Console.WriteLine();

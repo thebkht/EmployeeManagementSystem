@@ -13,7 +13,7 @@ namespace EmployeeManagementSystem
         public string Password { get; set; }
         public string Name { get; set; }
         public double HourlyRate { get; set; }
-        public List<Task> AssignedTasks { get; set; }
+        public List<Tasks> AssignedTasks { get; set; }
         public int CompletedTasks { get; set; }
         public int UncompletedTasks { get; set; }
 
@@ -24,12 +24,12 @@ namespace EmployeeManagementSystem
             Password = password;
             Name = name;
             HourlyRate = rate;
-            AssignedTasks = new List<Task>();
+            AssignedTasks = new List<Tasks>();
             CompletedTasks = 0;
             UncompletedTasks = 0;
         }
 
-        p/*ublic Employee(string name, double rate)
+        /*public Employee(string name, double rate)
         {
             Name = name;
             HourlyRate = rate;

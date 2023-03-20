@@ -8,14 +8,14 @@ namespace EmployeeManagementSystem
 {
     internal class TaskList
     {
-        Tasks[] tasksSet;
+        List<Tasks> tasksSet;
 
-        public TaskList(Tasks[] tasks)
+        public TaskList(List<Tasks> tasks)
         {
             tasksSet = tasks;
         }
 
-        public Tasks[] GetAllTasks() => tasksSet;
+        public List<Tasks> GetAllTasks() => tasksSet;
 
     }
 }
