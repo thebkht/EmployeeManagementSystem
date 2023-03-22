@@ -36,7 +36,7 @@ namespace EmployeeManagementSystem
 
         public void Display()
         {
-            Console.WriteLine($"{Name}: Completed Tasks: {CompletedTasks} | Uncompleted Tasks : {UncompletedTasks}");
+            Console.WriteLine($"{Id, -5} {Name, -15} {CompletedTasks, -15} {UncompletedTasks, 15}");
         }
 
         public void AddCompletedTask()

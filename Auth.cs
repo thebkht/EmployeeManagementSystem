@@ -18,11 +18,12 @@ namespace EmployeeManagementSystem
 
         public static bool Login()
         {
-            Console.Write("Please enter your username: ");
+            Console.Clear();
+            Console.Write("Username: ");
             string username = Console.ReadLine().Trim().ToLower();
             Console.WriteLine(Environment.NewLine);
 
-            Console.Write("Please enter your password: ");
+            Console.Write("Password: ");
             string password = Console.ReadLine().Trim();
             Console.WriteLine(Environment.NewLine);
 

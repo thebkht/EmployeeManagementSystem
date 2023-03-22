@@ -9,6 +9,27 @@ namespace EmployeeManagementSystem
 {
     public class MainView
     {
+        public string Greet()
+        {
+            string greeting;
+            DateTime now = DateTime.Now;
+
+            if (now.Hour < 12)
+            {
+                greeting = "Good morning";
+            }
+            else if (now.Hour < 18)
+            {
+                greeting = "Good afternoon";
+            }
+            else
+            {
+                greeting = "Good evening";
+            }
+
+            return greeting;
+        }
+
         void listLines()
         {
             Console.Write("|");
@@ -24,6 +45,7 @@ namespace EmployeeManagementSystem
 
         void Admin()
         {
+            Console.Clear();
             Console.WriteLine("Menu:\n");
             Console.WriteLine(">>> 1. Manage employee");
             Console.WriteLine(">>> 2. Manage tasks");
@@ -51,7 +73,8 @@ namespace EmployeeManagementSystem
         }
         void User()
         {
-            Console.WriteLine($"\nTasks for {DateTime.Today.ToString("dddd")}:\n");
+
+            Console.WriteLine($"\n{Greet()}\nTasks for {DateTime.Today.ToString("dddd")}:\n");
 
             var sortedList = Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date);
 
@@ -114,6 +137,10 @@ namespace EmployeeManagementSystem
                         Console.Write("Enter Employee Salary: ");
                         double empSalary = double.Parse(Console.ReadLine());
                         Employee newEmp = new Employee(empUsername, empPassword, empName, empSalary);
+                        /*if (employees == null)
+                        {
+                            employees = new List<Employee>();
+                        }*/
                         employees.AddEmployee(newEmp);
                         Console.WriteLine("\nEmployee Added Successfully!");
                         Console.ReadLine();
@@ -135,10 +162,10 @@ namespace EmployeeManagementSystem
 
                     case 3:
                         Console.WriteLine("\n========== Employee List ==========");
-                        Console.WriteLine("{0,-5} {1,-15} {2,-15} {3,-15} {4,-15}", "ID", "Name", "Username", "Salary");
+                        Console.WriteLine("{0,-5} {1,-15} {2,-15} {3,-15}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
                         foreach (Employee emp in employees.GetAllEmployees())
                         {
-                            Console.WriteLine("{0,-5} {1,-15} {2,-15} {3,-15}", emp.Id, emp.Name, emp.Username, emp.HourlyRate);
+                            emp.Display();
                         }
                         Console.WriteLine("===================================");
                         Console.ReadLine();

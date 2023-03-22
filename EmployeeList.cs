@@ -8,7 +8,7 @@ namespace EmployeeManagementSystem
 {
     internal class EmployeeList
     {
-        List<Employee> employeeSet;
+        List<Employee> employeeSet = new List<Employee>();
 
         public EmployeeList(List<Employee> employee)
         {
@@ -21,7 +21,13 @@ namespace EmployeeManagementSystem
             int newId = employeeSet.Count > 0 ? employeeSet.Max(emp => emp.Id) + 1 : 1;
             employee.Id = newId;
 
+            if (employeeSet == null)
+            {
+                employeeSet = new List<Employee>();
+            }
+
             employeeSet.Add(employee);
+
         }
 
         public bool RemoveEmployee(int id)
