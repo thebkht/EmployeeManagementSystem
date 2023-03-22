@@ -23,6 +23,12 @@ namespace EmployeeManagementSystem
             employeeList = new(employees);
             tasksList = new(tasks);
 
+            Employee emp = new Employee("yusupovbg", "1234", "Bakhtiyor", 10.0);
+            employeeList.AddEmployee(emp);
+            Employee assignedEmployee = employeeList.GetEmployee(1);
+            Tasks tsk = new Tasks("Finish project", DateTime.Today.Date, assignedEmployee.Name);
+            tasksList.AddTask(tsk);
+
             RulesView rules = new RulesView();
             rules.Show();
             while (!Auth.Login())

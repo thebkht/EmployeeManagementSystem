@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +63,8 @@ namespace EmployeeManagementSystem
                     Admin();
                     break;
                 case 2:
+                    ManageTasks();
+                    Admin();
                     break;
                 case 3:
                     break;
@@ -78,13 +81,10 @@ namespace EmployeeManagementSystem
 
             var sortedList = Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date);
 
-            listLines();
-            Console.WriteLine("| Description                                      | Status          | Due Date       | Assigned To                    |");
-            listLines();
+            Console.WriteLine("{}0, -5} {1, -48} {2, -15} {3, -14} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
             foreach (Tasks item in sortedList)
                 item.Display();
-            listLines();
 
             Console.WriteLine("\nMenu:\n");
             Console.WriteLine(">>> 1. Change task status");
@@ -137,10 +137,6 @@ namespace EmployeeManagementSystem
                         Console.Write("Enter Employee Salary: ");
                         double empSalary = double.Parse(Console.ReadLine());
                         Employee newEmp = new Employee(empUsername, empPassword, empName, empSalary);
-                        /*if (employees == null)
-                        {
-                            employees = new List<Employee>();
-                        }*/
                         employees.AddEmployee(newEmp);
                         Console.WriteLine("\nEmployee Added Successfully!");
                         Console.ReadLine();
@@ -162,7 +158,7 @@ namespace EmployeeManagementSystem
 
                     case 3:
                         Console.WriteLine("\n========== Employee List ==========");
-                        Console.WriteLine("{0,-5} {1,-15} {2,-15} {3,-15}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
+                        Console.WriteLine("{0,-5} {1,-15} {2,-25} {3,-25}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
                         foreach (Employee emp in employees.GetAllEmployees())
                         {
                             emp.Display();
@@ -172,7 +168,7 @@ namespace EmployeeManagementSystem
                         break;
 
                     case 4:
-                        exit = true;
+                        Admin();
                         break;
 
                     default:
@@ -182,6 +178,131 @@ namespace EmployeeManagementSystem
                 }
 
             } while (!exit);
+        }
+
+        public void ManageTasks()
+        {
+
+            Console.Clear();
+            Console.WriteLine("\n======= Tasks Management =======\n");
+
+            Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -14} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
+
+            foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
+                item.Display();
+
+            Console.WriteLine("\n1. Add a new task");
+            Console.WriteLine("2. Remove a task");
+            Console.WriteLine("3. Edit a task");
+            Console.WriteLine("4. Go back to main menu");
+
+            int choice = int.Parse(Console.ReadLine());
+
+            while (choice != 4)
+            {
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Enter a description for the new task: ");
+                        string desc = Console.ReadLine();
+
+                        Console.WriteLine("Enter the due date for the new task (MM/DD/YYYY): ");
+                        DateTime due = DateTime.Parse(Console.ReadLine());
+
+                        Console.WriteLine("Enter an ID to assign the employee: ");
+                        Console.WriteLine("{0,-5} {1,-15} {2,-25} {3,-25}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
+                        foreach (Employee emp in Program.employeeList.GetAllEmployees())
+                        {
+                            emp.Display();
+                        }
+                        int id = int.Parse(Console.ReadLine());
+                        Employee assignedEmployee = Program.employeeList.GetEmployee(id);
+
+                        Tasks newTask = new Tasks(desc, due, assignedEmployee.Name);
+                        Program.tasksList.AddTask(newTask);
+                        break;
+
+                    case 2:
+                        Console.Write("\nEnter Task ID to Remove: ");
+                        int taskIdToRemove = int.Parse(Console.ReadLine());
+                        bool isTaskRemoved = Program.tasksList.RemoveTask(taskIdToRemove);
+                        if (isTaskRemoved)
+                        {
+                            Console.WriteLine("\nTask Removed Successfully!\n");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nTask with ID {0} not found!\n", taskIdToRemove);
+                        }
+                        break;
+
+                    case 3:
+                        Console.WriteLine("====== Edit Task ======");
+
+                        Console.Write("Enter the ID of the task to edit: ");
+                        if (!int.TryParse(Console.ReadLine(), out id))
+                        {
+                            Console.WriteLine("Invalid input. Press any key to try again...");
+                            Console.ReadKey();
+                            return;
+                        }
+
+                        Tasks task = Program.tasksList.GetTask(id);
+
+                        if (task == null)
+                        {
+                            Console.WriteLine("Task not found. Press any key to try again...");
+                            Console.ReadKey();
+                            return;
+                        }
+
+                        Console.WriteLine($"Editing Task: {task.Description} (ID: {task.Id})");
+                        Console.WriteLine("Leave a field blank to keep existing value.");
+
+                        Console.Write("Title: ");
+                        string title = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(title))
+                        {
+                            task.Description = title;
+                        }
+
+                        Console.Write("Description: ");
+                        string description = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(description))
+                        {
+                            task.Description = description;
+                        }
+
+                        Console.Write("Assigned Employee ID: ");
+                        int employeeId;
+                        if (int.TryParse(Console.ReadLine(), out employeeId))
+                        {
+                            Employee employee = Program.employeeList.GetEmployee(employeeId);
+                            if (employee != null)
+                            {
+                                task.AssignedTo = employee.Name;
+                            }
+                        }
+
+                        Console.Write("Due Date (yyyy-MM-dd): ");
+                        DateTime dueDate;
+                        if (DateTime.TryParse(Console.ReadLine(), out dueDate))
+                        {
+                            task.DueDate = dueDate;
+                        }
+
+                        Console.WriteLine("Task updated successfully. Press any key to continue...");
+                        Console.ReadKey();
+                        break;
+
+                    case 4:
+                        Admin();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Try again.");
+                        break;
+                }
+            }
         }
 
         public void Show()

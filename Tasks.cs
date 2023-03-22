@@ -9,6 +9,7 @@ namespace EmployeeManagementSystem
     public class Tasks
     {
         public string Description { get; set; }
+        public int Id { get; set; }
         public bool isCompleted { get; set; }
         public DateTime DueDate { get; set; }
         public string AssignedTo { get; set; }
@@ -23,7 +24,7 @@ namespace EmployeeManagementSystem
 
         public void Display()
         {
-            Console.WriteLine($"| {Description, -48} | {(isCompleted ? "'Completed'" : "'Not completed'"), -15} | {DueDate.ToString("dddd HH:mm"), -14} | {AssignedTo, -30} |");
+            Console.WriteLine($"{Id, -5} {Description, -48} {(isCompleted ? "'Completed'" : "'Not completed'"), -15} {DueDate.ToString("dddd HH:mm"), -14} {AssignedTo, -30}");
         }
     }
 }
