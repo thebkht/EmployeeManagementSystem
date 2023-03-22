@@ -21,11 +21,6 @@ namespace EmployeeManagementSystem
             int newId = employeeSet.Count > 0 ? employeeSet.Max(emp => emp.Id) + 1 : 1;
             employee.Id = newId;
 
-            if (employeeSet == null)
-            {
-                employeeSet = new List<Employee>();
-            }
-
             employeeSet.Add(employee);
 
         }
