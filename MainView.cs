@@ -86,88 +86,75 @@ namespace EmployeeManagementSystem
 
         public void ManageEmployees()
         {
-            Console.WriteLine("---- Manage Employees ----");
-            Console.WriteLine("1. View all employees");
-            Console.WriteLine("2. Add a new employee");
-            Console.WriteLine("3. Update an employee's information");
-            Console.WriteLine("4. Delete an employee");
-            Console.WriteLine("5. Back to Main Menu");
-            int choice = int.Parse(Console.ReadLine());
+            var employees = Program.employeeList;
+            bool exit = false;
 
-            switch (choice)
+            do
             {
-                case 1:
-                    Console.WriteLine("---- All Employees ----");
-                    foreach (Employee emp in Program.employeeList.GetAllEmployees())
-                    {
-                        emp.Display();
-                    }
-                    Console.WriteLine("------------------------");
-                    break;
-                case 2:
-                    Console.WriteLine("---- Add Employee ----");
-                    Console.Write("Enter employee id: ");
-                    int id = int.Parse(Console.ReadLine());
-                    Console.Write("Enter employee username: ");
-                    string username = Console.ReadLine();
-                    string password = PasswordGenerator.RandomPassword();
-                    Console.Write("Enter employee name: ");
-                    string name = Console.ReadLine();
-                    Console.Write("Enter employee hourly rate: ");
-                    double rate = double.Parse(Console.ReadLine());
-                    Console.WriteLine($"Password for this employee: {password}");
-                    Program.employeeList.GetAllEmployees().Add(new Employee(id, username, password, name, rate));
-                    break;
-                case 3:
-                    Console.WriteLine("---- Update Employee ----");
-                    Console.Write("Enter employee ID: ");
-                    id = int.Parse(Console.ReadLine());
-                    Employee empToUpdate = Program.employeeList.GetEmployee(id);
-                    if (empToUpdate != null)
-                    {
-                        Console.WriteLine("Employee found!");
-                        Console.Write("Enter new name (leave blank to keep the same): ");
-                        string newName = Console.ReadLine();
-                        if (!string.IsNullOrEmpty(newName))
+                Console.Clear();
+                Console.WriteLine("========== Manage Employees ==========");
+                Console.WriteLine("1. Add Employee");
+                Console.WriteLine("2. Remove Employee");
+                Console.WriteLine("3. View Employees");
+                Console.WriteLine("4. Back to Main Menu");
+                Console.WriteLine("======================================");
+
+                Console.Write("Enter your choice: ");
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        Console.Write("Enter Employee Name: ");
+                        string empName = Console.ReadLine();
+                        Console.Write("Enter Employee Username: ");
+                        string empUsername = Console.ReadLine();
+                        string empPassword = PasswordGenerator.RandomPassword();
+                        Console.WriteLine($"Password for this employee: {empPassword}");
+                        Console.Write("Enter Employee Salary: ");
+                        double empSalary = double.Parse(Console.ReadLine());
+                        Employee newEmp = new Employee(empUsername, empPassword, empName, empSalary);
+                        employees.AddEmployee(newEmp);
+                        Console.WriteLine("\nEmployee Added Successfully!");
+                        Console.ReadLine();
+                        break;
+
+                    case 2:
+                        Console.Write("Enter Employee ID: ");
+                        int empId = int.Parse(Console.ReadLine());
+                        if (employees.RemoveEmployee(empId))
                         {
-                            empToUpdate.Name = newName;
+                            Console.WriteLine("\nEmployee Removed Successfully!");
                         }
-                        Console.Write("Enter new hourly rate (leave blank to keep the same): ");
-                        string newRateStr = Console.ReadLine();
-                        if (!string.IsNullOrEmpty(newRateStr))
+                        else
                         {
-                            double newRate = double.Parse(newRateStr);
-                            empToUpdate.HourlyRate = newRate;
+                            Console.WriteLine("\nEmployee Not Found!");
                         }
-                        Console.WriteLine("Employee updated successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Employee not found.");
-                    }
-                    break;
-                case 4:
-                    Console.WriteLine("---- Delete Employee ----");
-                    Console.Write("Enter employee ID: ");
-                    int idToDelete = int.Parse(Console.ReadLine());
-                    Employee empToDelete = Program.employeeList.GetEmployee(idToDelete);
-                    if (empToDelete != null)
-                    {
-                        Program.employeeList.GetAllEmployees().Remove(empToDelete);
-                        Console.WriteLine("Employee deleted successfully!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Employee not found.");
-                    }
-                    break;
-                case 5:
-                    Show();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    break;
-            }
+                        Console.ReadLine();
+                        break;
+
+                    case 3:
+                        Console.WriteLine("\n========== Employee List ==========");
+                        Console.WriteLine("{0,-5} {1,-15} {2,-15} {3,-15} {4,-15}", "ID", "Name", "Username", "Salary");
+                        foreach (Employee emp in employees.GetAllEmployees())
+                        {
+                            Console.WriteLine("{0,-5} {1,-15} {2,-15} {3,-15}", emp.Id, emp.Name, emp.Username, emp.HourlyRate);
+                        }
+                        Console.WriteLine("===================================");
+                        Console.ReadLine();
+                        break;
+
+                    case 4:
+                        exit = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("\nInvalid Choice! Please try again.");
+                        Console.ReadLine();
+                        break;
+                }
+
+            } while (!exit);
         }
 
         public void Show()

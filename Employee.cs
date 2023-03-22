@@ -17,9 +17,8 @@ namespace EmployeeManagementSystem
         public int CompletedTasks { get; set; }
         public int UncompletedTasks { get; set; }
 
-        public Employee(int id, string username, string password, string name, double rate)
+        public Employee(string username, string password, string name, double rate)
         {
-            Id = id;
             Username = username;
             Password = password;
             Name = name;
