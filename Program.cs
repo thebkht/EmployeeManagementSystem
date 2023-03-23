@@ -25,10 +25,6 @@ namespace EmployeeManagementSystem
 
             Employee emp = new Employee("yusupovbg", "1234", "Bakhtiyor", 10.0);
             employeeList.AddEmployee(emp);
-            Employee assignedEmployee = employeeList.GetEmployee(1);
-            Tasks tsk = new Tasks("Finish project", DateTime.Today.Date, assignedEmployee.Name);
-            assignedEmployee.UncompletedTasks = Employee.GetAssignedTaskCount(assignedEmployee);
-            tasksList.AddTask(tsk);
 
             RulesView rules = new RulesView();
             rules.Show();

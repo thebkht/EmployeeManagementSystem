@@ -29,15 +29,9 @@ namespace EmployeeManagementSystem
             UncompletedTasks = 0;
         }
 
-        /*public Employee(string name, double rate)
-        {
-            Name = name;
-            HourlyRate = rate;
-        }*/
-
         public void Display()
         {
-            Console.WriteLine($"{Id, -5} {Name, -15} {CompletedTasks, -15} {UncompletedTasks, 15}");
+            Console.WriteLine($"{Id, -5} {Name, -15} {CompletedTasks, -20} {UncompletedTasks, -20}");
         }
 
         public void AddCompletedTask()
@@ -48,21 +42,6 @@ namespace EmployeeManagementSystem
         public void AddUncompletedTask()
         {
             UncompletedTasks++;
-        }
-
-        public static int GetAssignedTaskCount(Employee employee)
-        {
-            int assignedTasks = 0;
-
-            foreach (Tasks task in Program.tasksList.GetAllTasks())
-            {
-                if (task.AssignedTo == employee.Name)
-                {
-                    assignedTasks++;
-                }
-            }
-
-            return assignedTasks;
         }
     }
 }

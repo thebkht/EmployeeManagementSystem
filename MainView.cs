@@ -123,11 +123,11 @@ namespace EmployeeManagementSystem
                 Console.WriteLine("======================================");
 
                 Console.Write("Enter your choice: ");
-                int choice = int.Parse(Console.ReadLine());
+                char choice = char.Parse(Console.ReadLine());
 
                 switch (choice)
                 {
-                    case 1:
+                    case '1':
                         Console.Write("Enter Employee Name: ");
                         string empName = Console.ReadLine();
                         Console.Write("Enter Employee Username: ");
@@ -142,7 +142,7 @@ namespace EmployeeManagementSystem
                         ManageEmployees();
                         break;
 
-                    case 2:
+                    case '2':
                         Console.Write("Enter Employee ID: ");
                         int empId = int.Parse(Console.ReadLine());
                         if (employees.RemoveEmployee(empId))
@@ -156,7 +156,7 @@ namespace EmployeeManagementSystem
                         ManageEmployees();
                         break;
 
-                    case 3:
+                    case '3':
                         Console.WriteLine("\n========== Employee List ==========");
                         Console.WriteLine("{0,-5} {1,-15} {2,-20} {3,-20}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
                         foreach (Employee emp in employees.GetAllEmployees())
@@ -164,11 +164,12 @@ namespace EmployeeManagementSystem
                             emp.Display();
                         }
                         Console.WriteLine("===================================");
-                        ManageEmployees();
+                        Console.ReadLine();
                         break;
 
-                    case 4:
+                    case '4':
                         Admin();
+                        exit = true;
                         break;
 
                     default:
@@ -182,16 +183,19 @@ namespace EmployeeManagementSystem
 
         public void ManageTasks()
         {
-
+            Employee employ;
             Console.Clear();
             Console.WriteLine("\n======= Tasks Management =======\n");
 
-            Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
+            if (Program.tasksList.GetAllTasks().Any())
+            {
+                Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
-            foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
-                item.Display();
+                foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
+                    item.Display();
+            }
 
-            Console.WriteLine("\n1. Add a new task");
+            Console.WriteLine("1. Add a new task");
             Console.WriteLine("2. Remove a task");
             Console.WriteLine("3. Edit a task");
             Console.WriteLine("4. Go back to main menu");
@@ -220,7 +224,7 @@ namespace EmployeeManagementSystem
                         }
                         int id = int.Parse(Console.ReadLine());
                         Employee assignedEmployee = Program.employeeList.GetEmployee(id);
-                        assignedEmployee.UncompletedTasks = Employee.GetAssignedTaskCount(assignedEmployee);
+                        assignedEmployee.UncompletedTasks = Program.employeeList.GetAssignedTaskCount(assignedEmployee);
                         Tasks newTask = new Tasks(desc, due, assignedEmployee.Name);
                         Program.tasksList.AddTask(newTask);
                         ManageTasks();

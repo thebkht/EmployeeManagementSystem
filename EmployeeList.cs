@@ -63,6 +63,21 @@ namespace EmployeeManagementSystem
             return null;
         }
 
+        public int GetAssignedTaskCount(Employee employee)
+        {
+            int assignedTasks = 0;
+
+            foreach (Tasks task in Program.tasksList.GetAllTasks())
+            {
+                if (task.AssignedTo == employee.Name)
+                {
+                    assignedTasks++;
+                }
+            }
+
+            return assignedTasks;
+        }
+
         public List<Employee> GetAllEmployees() => employeeSet;
 
     }
