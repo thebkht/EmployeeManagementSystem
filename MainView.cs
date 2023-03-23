@@ -204,6 +204,11 @@ namespace EmployeeManagementSystem
                         Console.WriteLine("Enter a description for the new task: ");
                         string desc = Console.ReadLine();
 
+                    if (desc == "")
+                    {
+                        desc = "Untitled task";
+                    }
+
                         Console.WriteLine("Enter the due date for the new task (MM/DD/YYYY): ");
                         DateTime due = DateTime.Parse(Console.ReadLine());
 
