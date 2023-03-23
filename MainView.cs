@@ -139,7 +139,7 @@ namespace EmployeeManagementSystem
                         Employee newEmp = new Employee(empUsername, empPassword, empName, empSalary);
                         employees.AddEmployee(newEmp);
                         Console.WriteLine("\nEmployee Added Successfully!");
-                        Console.ReadLine();
+                        ManageEmployees();
                         break;
 
                     case 2:
@@ -153,18 +153,18 @@ namespace EmployeeManagementSystem
                         {
                             Console.WriteLine("\nEmployee Not Found!");
                         }
-                        Console.ReadLine();
+                        ManageEmployees();
                         break;
 
                     case 3:
                         Console.WriteLine("\n========== Employee List ==========");
-                        Console.WriteLine("{0,-5} {1,-15} {2,-25} {3,-25}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
+                        Console.WriteLine("{0,-5} {1,-15} {2,-20} {3,-20}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
                         foreach (Employee emp in employees.GetAllEmployees())
                         {
                             emp.Display();
                         }
                         Console.WriteLine("===================================");
-                        Console.ReadLine();
+                        ManageEmployees();
                         break;
 
                     case 4:
@@ -173,7 +173,7 @@ namespace EmployeeManagementSystem
 
                     default:
                         Console.WriteLine("\nInvalid Choice! Please try again.");
-                        Console.ReadLine();
+                        ManageEmployees();
                         break;
                 }
 
@@ -186,7 +186,7 @@ namespace EmployeeManagementSystem
             Console.Clear();
             Console.WriteLine("\n======= Tasks Management =======\n");
 
-            Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -14} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
+            Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
             foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
                 item.Display();
@@ -198,8 +198,6 @@ namespace EmployeeManagementSystem
 
             int choice = int.Parse(Console.ReadLine());
 
-            while (choice != 4)
-            {
                 switch (choice)
                 {
                     case 1:
@@ -217,9 +215,10 @@ namespace EmployeeManagementSystem
                         }
                         int id = int.Parse(Console.ReadLine());
                         Employee assignedEmployee = Program.employeeList.GetEmployee(id);
-
+                        assignedEmployee.UncompletedTasks = Employee.GetAssignedTaskCount(assignedEmployee);
                         Tasks newTask = new Tasks(desc, due, assignedEmployee.Name);
                         Program.tasksList.AddTask(newTask);
+                        ManageTasks();
                         break;
 
                     case 2:
@@ -234,6 +233,7 @@ namespace EmployeeManagementSystem
                         {
                             Console.WriteLine("\nTask with ID {0} not found!\n", taskIdToRemove);
                         }
+                    ManageTasks();
                         break;
 
                     case 3:
@@ -293,6 +293,7 @@ namespace EmployeeManagementSystem
 
                         Console.WriteLine("Task updated successfully. Press any key to continue...");
                         Console.ReadKey();
+                    ManageTasks();
                         break;
 
                     case 4:
@@ -301,7 +302,6 @@ namespace EmployeeManagementSystem
                     default:
                         Console.WriteLine("Invalid choice. Try again.");
                         break;
-                }
             }
         }
 

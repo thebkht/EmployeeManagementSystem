@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,21 @@ namespace EmployeeManagementSystem
         public void AddUncompletedTask()
         {
             UncompletedTasks++;
+        }
+
+        public static int GetAssignedTaskCount(Employee employee)
+        {
+            int assignedTasks = 0;
+
+            foreach (Tasks task in Program.tasksList.GetAllTasks())
+            {
+                if (task.AssignedTo == employee.Name)
+                {
+                    assignedTasks++;
+                }
+            }
+
+            return assignedTasks;
         }
     }
 }
