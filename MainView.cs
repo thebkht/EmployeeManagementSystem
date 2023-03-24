@@ -118,6 +118,7 @@ namespace EmployeeManagementSystem
                     MarkAsCompleted(currentEmployee);
                     break;
                 case 2:
+                    ChangePassword(currentEmployee);
                     break;
                 case 3:
                     break;
@@ -147,11 +148,11 @@ namespace EmployeeManagementSystem
             }
         }
 
-        private void ChangePassword()
+        public void ChangePassword(Employee employee)
         {
             Console.WriteLine("Please enter your current password:");
             var currentPassword = Console.ReadLine();
-            if (currentPassword != _employee.Password)
+            if (currentPassword != employee.Password)
             {
                 Console.WriteLine("Invalid password. Please try again.");
                 ChangePassword();
@@ -160,7 +161,7 @@ namespace EmployeeManagementSystem
             {
                 Console.WriteLine("Please enter a new password:");
                 var newPassword = Console.ReadLine();
-                _employee.Password = newPassword;
+                employee.Password = newPassword;
                 Console.WriteLine("Password successfully changed.");
                 Show();
             }
