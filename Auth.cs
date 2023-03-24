@@ -8,8 +8,8 @@ namespace EmployeeManagementSystem
 {
     internal class Auth
     {
-        private bool isLoggedIn = false;
-        private static string currentUser;
+        private static bool isLoggedIn = false;
+        public static string currentUser;
 
         private static Dictionary<string, string> users = new Dictionary<string, string>()
     {
@@ -46,9 +46,13 @@ namespace EmployeeManagementSystem
             return false;
         }
 
-        public void Logout()
+        public static void Logout()
         {
             isLoggedIn = false;
+            while (!Login())
+            {
+
+            }
             currentUser = null;
         }
 

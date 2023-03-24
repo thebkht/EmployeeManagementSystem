@@ -39,9 +39,18 @@ namespace EmployeeManagementSystem
             CompletedTasks++;
         }
 
-        public void AddUncompletedTask()
+        public void MarkTaskCompleted(Tasks task)
         {
-            UncompletedTasks++;
+            if (AssignedTasks.Contains(task))
+            {
+                task.isCompleted = true;
+                AddCompletedTask();
+                Console.WriteLine("Task marked as completed!");
+            }
+            else
+            {
+                Console.WriteLine("You are not assigned to this task.");
+            }
         }
     }
 }

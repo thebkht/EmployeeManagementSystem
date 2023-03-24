@@ -50,9 +50,9 @@ namespace EmployeeManagementSystem
             Console.WriteLine("Menu:\n");
             Console.WriteLine(">>> 1. Manage employee");
             Console.WriteLine(">>> 2. Manage tasks");
-            Console.WriteLine(">>> 3. Track attendance");
-            Console.WriteLine(">>> 4. Manage payroll");
-            Console.WriteLine(">>> 5. Logout");
+/*            Console.WriteLine(">>> 3. Track attendance");
+            Console.WriteLine(">>> 4. Manage payroll");*/
+            Console.WriteLine(">>> 0. Logout");
 
             int choice = int.Parse(Console.ReadLine());
 
@@ -66,30 +66,48 @@ namespace EmployeeManagementSystem
                     ManageTasks();
                     Admin();
                     break;
-                case 3:
+                /*case 3:
                     break;
                 case 4:
-                    break;
-                case 5:
+                    break;*/
+                case 0:
+                    Auth.Logout();
                     break;
             }
         }
+
+        Employee FindEmployee(string username)
+        {
+            foreach (Employee emp in Program.employeeList.GetAllEmployees())
+            {
+                if (emp.Username == username)
+                {
+                    return emp;
+                }
+            }
+            return null;
+        }
         void User()
         {
+            Employee currentEmployee = FindEmployee(Auth.currentUser);
 
-            Console.WriteLine($"\n{Greet()}\nTasks for {DateTime.Today.ToString("dddd")}:\n");
+            Console.WriteLine($"\n{Greet()}, {currentEmployee.Name}\nTasks for {DateTime.Today.ToString("dddd")}:\n");
 
-            var sortedList = Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date);
+            if (Program.tasksList.GetAllTasks().Any())
+            {
+                Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
-            Console.WriteLine("{}0, -5} {1, -48} {2, -15} {3, -14} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
-
-            foreach (Tasks item in sortedList)
-                item.Display();
+                foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
+                    item.Display();
+            }
+            else
+            {
+                Console.WriteLine("There is no any tasks for today!");
+            }
 
             Console.WriteLine("\nMenu:\n");
             Console.WriteLine(">>> 1. Change task status");
-            Console.WriteLine(">>> 2. View payroll");
-            Console.WriteLine(">>> 3. View attendance");
+            Console.WriteLine(">>> 2. Change password");
             Console.WriteLine(">>> 4. Logout");
 
             int choice = int.Parse(Console.ReadLine());
@@ -97,6 +115,7 @@ namespace EmployeeManagementSystem
             switch (choice)
             {
                 case 1:
+                    MarkAsCompleted(currentEmployee);
                     break;
                 case 2:
                     break;
@@ -104,6 +123,46 @@ namespace EmployeeManagementSystem
                     break;
                 case 4:
                     break;
+            }
+        }
+
+        public void MarkAsCompleted(Employee employee)
+        {
+            Console.WriteLine("Enter the ID of the task you want to mark as completed:");
+            if (int.TryParse(Console.ReadLine(), out int taskId))
+            {
+                var task = Program.tasksList.GetTask(taskId);
+                if (task != null)
+                {
+                    employee.MarkTaskCompleted(task);
+                }
+                else
+                {
+                    Console.WriteLine("Task not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid task ID.");
+            }
+        }
+
+        private void ChangePassword()
+        {
+            Console.WriteLine("Please enter your current password:");
+            var currentPassword = Console.ReadLine();
+            if (currentPassword != _employee.Password)
+            {
+                Console.WriteLine("Invalid password. Please try again.");
+                ChangePassword();
+            }
+            else
+            {
+                Console.WriteLine("Please enter a new password:");
+                var newPassword = Console.ReadLine();
+                _employee.Password = newPassword;
+                Console.WriteLine("Password successfully changed.");
+                Show();
             }
         }
 
@@ -181,11 +240,28 @@ namespace EmployeeManagementSystem
             } while (!exit);
         }
 
+        public void AddTask(Tasks task, Employee employee)
+        {
+            if (task != null)
+            {
+                Program.tasksList.GetAllTasks().Add(task);
+                if (employee != null)
+                {
+                    employee.AssignedTasks.Add(task);
+                }
+                Console.WriteLine("Task added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Task could not be added.");
+            }
+        }
+
         public void ManageTasks()
         {
             Employee employ;
             Console.Clear();
-            Console.WriteLine("\n======= Tasks Management =======\n");
+            Console.WriteLine("\n======= Tasks Management =======");
 
             if (Program.tasksList.GetAllTasks().Any())
             {
@@ -195,7 +271,7 @@ namespace EmployeeManagementSystem
                     item.Display();
             }
 
-            Console.WriteLine("1. Add a new task");
+            Console.WriteLine("\n1. Add a new task");
             Console.WriteLine("2. Remove a task");
             Console.WriteLine("3. Edit a task");
             Console.WriteLine("4. Go back to main menu");
@@ -226,7 +302,7 @@ namespace EmployeeManagementSystem
                         Employee assignedEmployee = Program.employeeList.GetEmployee(id);
                         assignedEmployee.UncompletedTasks = Program.employeeList.GetAssignedTaskCount(assignedEmployee);
                         Tasks newTask = new Tasks(desc, due, assignedEmployee.Name);
-                        Program.tasksList.AddTask(newTask);
+                        AddTask(newTask, assignedEmployee);
                         ManageTasks();
                         break;
 
