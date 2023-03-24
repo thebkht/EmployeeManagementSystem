@@ -155,7 +155,7 @@ namespace EmployeeManagementSystem
             if (currentPassword != employee.Password)
             {
                 Console.WriteLine("Invalid password. Please try again.");
-                ChangePassword();
+                ChangePassword(employee);
             }
             else
             {
