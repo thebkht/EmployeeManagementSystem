@@ -91,7 +91,8 @@ namespace EmployeeManagementSystem
         {
             Employee currentEmployee = FindEmployee(Auth.currentUser);
 
-            Console.WriteLine($"\n{Greet()}, {currentEmployee.Name}\nTasks for {DateTime.Today.ToString("dddd")}:\n");
+            Console.Clear();
+            Console.WriteLine($"{Greet()}, {currentEmployee.Name}\nTasks for {DateTime.Today.ToString("dddd")}:\n");
 
             if (Program.tasksList.GetAllTasks().Any())
             {
@@ -108,7 +109,7 @@ namespace EmployeeManagementSystem
             Console.WriteLine("\nMenu:\n");
             Console.WriteLine(">>> 1. Change task status");
             Console.WriteLine(">>> 2. Change password");
-            Console.WriteLine(">>> 4. Logout");
+            Console.WriteLine(">>> 0. Logout");
 
             int choice = int.Parse(Console.ReadLine());
 
@@ -122,7 +123,8 @@ namespace EmployeeManagementSystem
                     break;
                 case 3:
                     break;
-                case 4:
+                case 0:
+                    Auth.Logout();
                     break;
             }
         }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Intercom.Data;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +10,12 @@ namespace EmployeeManagementSystem
 {
     internal class Auth
     {
-        private static bool isLoggedIn = false;
+        public static bool isLoggedIn = true;
         public static string currentUser;
+        /*public static bool isUserEmp = false;
+        public static bool isUserAdmin = false;*/
 
-        private static Dictionary<string, string> users = new Dictionary<string, string>()
-    {
-        {"admin", "admin"},
-    };
+        public static ConcurrentDictionary<string, string> admins = new ConcurrentDictionary<string, string>();
 
         public static bool Login()
         {
@@ -27,10 +28,15 @@ namespace EmployeeManagementSystem
             string password = Console.ReadLine().Trim();
             Console.WriteLine(Environment.NewLine);
 
-            if (users.ContainsKey(username) && users[username] == password)
+            if (admins.TryGetValue(username, out string savedPassword))
             {
-                currentUser = username;
-                return true;
+                // Check if the provided password matches the stored password
+                if (savedPassword == password)
+                {
+                    // Authentication successful
+                    currentUser = username;
+                    return true;
+                }
             }
 
             // Check if the username and password match any employee in the employee list
@@ -38,10 +44,12 @@ namespace EmployeeManagementSystem
             {
                 if (employee.Username == username && employee.Password == password)
                 {
+                    currentUser = username;
                     return true;
                 }
             }
 
+            isLoggedIn = true;
             // If the username and password do not match any admin or employee, authentication fails
             return false;
         }
@@ -49,11 +57,8 @@ namespace EmployeeManagementSystem
         public static void Logout()
         {
             isLoggedIn = false;
-            while (!Login())
-            {
-
-            }
             currentUser = null;
+            //Program.mainView()
         }
 
         public bool IsLoggedIn()
@@ -63,13 +68,7 @@ namespace EmployeeManagementSystem
 
         public static bool isUserAdmin()
         {
-            if (currentUser == "admin")
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            return admins.ContainsKey(currentUser);
         }
     }
 }

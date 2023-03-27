@@ -22,17 +22,17 @@ namespace EmployeeManagementSystem
             mainView = new();
             employeeList = new(employees);
             tasksList = new(tasks);
+            Auth.admins.TryAdd("admin", "admin");
 
             Employee emp = new Employee("yusupovbg", "1234", "Bakhtiyor", 10.0);
             employeeList.AddEmployee(emp);
 
             RulesView rules = new RulesView();
             rules.Show();
-            while (!Auth.Login())
+            while (Auth.Login())
             {
-
+                mainView.Show();
             }
-            mainView.Show();
             Console.WriteLine();
         }
     }
