@@ -24,8 +24,9 @@ namespace EmployeeManagementSystem
             tasksList = new(tasks);
 
             User user = new User("yusupovbg", "1234", "Bakhtiyor", 10.0, true);
-            userList.AddEmployee(user);
-            Admin admin = new Admin("admin", "admin", null, false);
+            userList.AddUser(user);
+            Admin admin = new Admin("admin", "admin", "Admin", 0, false);
+            userList.AddUser(admin);
 
             RulesView rulesView = new();
             rulesView.Show();

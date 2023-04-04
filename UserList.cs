@@ -15,7 +15,7 @@ namespace EmployeeManagementSystem
             userSet = user;
         }
 
-        public void AddEmployee(User user)
+        public void AddUser(User user)
         {
             // Generate a new unique ID
             int newId = userSet.Count > 0 ? userSet.Max(usr => user.Id) + 1 : 1;
@@ -25,7 +25,7 @@ namespace EmployeeManagementSystem
 
         }
 
-        public bool RemoveEmployee(int id)
+        public bool RemoveUser(int id)
         {
             User userToRemove = null;
             foreach (User u in userSet)
@@ -51,7 +51,7 @@ namespace EmployeeManagementSystem
 
 
 
-        public User GetEmployee(int id)
+        public User GetUser(int id)
         {
             foreach (User user in userSet)
             {
@@ -78,7 +78,7 @@ namespace EmployeeManagementSystem
             return assignedTasks;
         }
 
-        public List<User> GetAllEmployees() => userSet;
+        public List<User> GetAllUsers() => userSet;
 
     }
 }

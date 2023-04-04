@@ -27,7 +27,7 @@ namespace EmployeeManagementSystem
             Console.WriteLine(Environment.NewLine);
 
             // Check if the username and password match any employee in the employee list
-            foreach (User i in Program.userList.GetAllEmployees())
+            foreach (User i in Program.userList.GetAllUsers())
             {
                 if (i.Username == username && i.Password == password)
                 {
