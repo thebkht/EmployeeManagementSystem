@@ -76,9 +76,9 @@ namespace EmployeeManagementSystem
             }
         }
 
-        Employee FindEmployee(string username)
+/*        User FindEmployee(string username)
         {
-            foreach (Employee emp in Program.employeeList.GetAllEmployees())
+            foreach (User emp in Program.userList.GetAllEmployees())
             {
                 if (emp.Username == username)
                 {
@@ -86,10 +86,10 @@ namespace EmployeeManagementSystem
                 }
             }
             return null;
-        }
+        }*/
         void User()
         {
-            Employee currentEmployee = FindEmployee(Auth.currentUser);
+            User currentEmployee = Auth.currentUser;
 
             Console.Clear();
             Console.WriteLine($"{Greet()}, {currentEmployee.Name}\nTasks for {DateTime.Today.ToString("dddd")}:\n");
@@ -129,7 +129,7 @@ namespace EmployeeManagementSystem
             }
         }
 
-        public void MarkAsCompleted(Employee employee)
+        public void MarkAsCompleted(User employee)
         {
             Console.WriteLine("Enter the ID of the task you want to mark as completed:");
             if (int.TryParse(Console.ReadLine(), out int taskId))
@@ -150,7 +150,7 @@ namespace EmployeeManagementSystem
             }
         }
 
-        public void ChangePassword(Employee employee)
+        public void ChangePassword(User employee)
         {
             Console.WriteLine("Please enter your current password:");
             var currentPassword = Console.ReadLine();
@@ -171,7 +171,7 @@ namespace EmployeeManagementSystem
 
         public void ManageEmployees()
         {
-            var employees = Program.employeeList;
+            var employees = Program.userList;
             bool exit = false;
 
             do
@@ -198,8 +198,8 @@ namespace EmployeeManagementSystem
                         Console.WriteLine($"Password for this employee: {empPassword}");
                         Console.Write("Enter Employee Salary: ");
                         double empSalary = double.Parse(Console.ReadLine());
-                        Employee newEmp = new Employee(empUsername, empPassword, empName, empSalary);
-                        employees.AddEmployee(newEmp);
+                        User newUsr = new User(empUsername, empPassword, empName, empSalary, true);
+                        employees.AddEmployee(newUsr);
                         Console.WriteLine("\nEmployee Added Successfully!");
                         ManageEmployees();
                         break;
@@ -221,7 +221,7 @@ namespace EmployeeManagementSystem
                     case '3':
                         Console.WriteLine("\n========== Employee List ==========");
                         Console.WriteLine("{0,-5} {1,-15} {2,-20} {3,-20}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
-                        foreach (Employee emp in employees.GetAllEmployees())
+                        foreach (User emp in employees.GetAllEmployees())
                         {
                             emp.Display();
                         }
@@ -243,7 +243,7 @@ namespace EmployeeManagementSystem
             } while (!exit);
         }
 
-        public void AddTask(Tasks task, Employee employee)
+        public void AddTask(Tasks task, User employee)
         {
             if (task != null)
             {
@@ -262,7 +262,7 @@ namespace EmployeeManagementSystem
 
         public void ManageTasks()
         {
-            Employee employ;
+            User employ;
             Console.Clear();
             Console.WriteLine("\n======= Tasks Management =======");
 
@@ -297,13 +297,13 @@ namespace EmployeeManagementSystem
 
                         Console.WriteLine("Enter an ID to assign the employee: ");
                         Console.WriteLine("{0,-5} {1,-15} {2,-25} {3,-25}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
-                        foreach (Employee emp in Program.employeeList.GetAllEmployees())
+                        foreach (User emp in Program.userList.GetAllEmployees())
                         {
                             emp.Display();
                         }
                         int id = int.Parse(Console.ReadLine());
-                        Employee assignedEmployee = Program.employeeList.GetEmployee(id);
-                        assignedEmployee.UncompletedTasks = Program.employeeList.GetAssignedTaskCount(assignedEmployee);
+                        User assignedEmployee = Program.userList.GetEmployee(id);
+                        assignedEmployee.UncompletedTasks = Program.userList.GetAssignedTaskCount(assignedEmployee);
                         Tasks newTask = new Tasks(desc, due, assignedEmployee.Name);
                         AddTask(newTask, assignedEmployee);
                         ManageTasks();
@@ -365,7 +365,7 @@ namespace EmployeeManagementSystem
                         int employeeId;
                         if (int.TryParse(Console.ReadLine(), out employeeId))
                         {
-                            Employee employee = Program.employeeList.GetEmployee(employeeId);
+                            User employee = Program.userList.GetEmployee(employeeId);
                             if (employee != null)
                             {
                                 task.AssignedTo = employee.Name;

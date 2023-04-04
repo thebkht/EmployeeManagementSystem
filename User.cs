@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagementSystem
 {
-    public class Employee
+    public class User
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -17,8 +17,10 @@ namespace EmployeeManagementSystem
         public List<Tasks> AssignedTasks { get; set; }
         public int CompletedTasks { get; set; }
         public int UncompletedTasks { get; set; }
+        public bool IsEmployee { get; set; }
+        public bool IsAdmin { get; set; }
 
-        public Employee(string username, string password, string name, double rate)
+        public User(string username, string password, string name, double rate, bool isEmployee)
         {
             Username = username;
             Password = password;
@@ -27,6 +29,7 @@ namespace EmployeeManagementSystem
             AssignedTasks = new List<Tasks>();
             CompletedTasks = 0;
             UncompletedTasks = 0;
+            IsEmployee = isEmployee;
         }
 
         public void Display()

@@ -10,12 +10,10 @@ namespace EmployeeManagementSystem
 {
     internal class Auth
     {
-        public static bool isLoggedIn = true;
-        public static string currentUser;
+        public static bool isLoggedIn = false;
+        public static User currentUser;
         /*public static bool isUserEmp = false;
         public static bool isUserAdmin = false;*/
-
-        public static ConcurrentDictionary<string, string> admins = new ConcurrentDictionary<string, string>();
 
         public static bool Login()
         {
@@ -28,23 +26,12 @@ namespace EmployeeManagementSystem
             string password = Console.ReadLine().Trim();
             Console.WriteLine(Environment.NewLine);
 
-            if (admins.TryGetValue(username, out string savedPassword))
-            {
-                // Check if the provided password matches the stored password
-                if (savedPassword == password)
-                {
-                    // Authentication successful
-                    currentUser = username;
-                    return true;
-                }
-            }
-
             // Check if the username and password match any employee in the employee list
-            foreach (Employee employee in Program.employeeList.GetAllEmployees())
+            foreach (User i in Program.userList.GetAllEmployees())
             {
-                if (employee.Username == username && employee.Password == password)
+                if (i.Username == username && i.Password == password)
                 {
-                    currentUser = username;
+                    currentUser = i;
                     return true;
                 }
             }
@@ -56,8 +43,10 @@ namespace EmployeeManagementSystem
 
         public static void Logout()
         {
+            RulesView rulesView = new RulesView();
             isLoggedIn = false;
             currentUser = null;
+            rulesView.Show();
             //Program.mainView()
         }
 
@@ -68,7 +57,7 @@ namespace EmployeeManagementSystem
 
         public static bool isUserAdmin()
         {
-            return admins.ContainsKey(currentUser);
+            return currentUser.IsAdmin;
         }
     }
 }
