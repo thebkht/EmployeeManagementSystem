@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagementSystem
 {
-    internal class TaskList
+    internal class TaskList : DbContext
     {
-        List<Tasks> tasksSet;
+        DbSet<Tasks> tasksSet;
 
-        public TaskList(List<Tasks> tasks)
+        public TaskList(DbSet<Tasks> tasks)
         {
             tasksSet = tasks;
         }
 
-        public List<Tasks> GetAllTasks() => tasksSet;
+        public DbSet<Tasks> GetAllTasks() => tasksSet;
 
         public Tasks GetTask(int id)
         {
@@ -29,12 +29,16 @@ namespace EmployeeManagementSystem
             return null;
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MyDatabase;");
+        }
 
         public void AddTask(Tasks tasks)
         {
             // Generate a new unique ID
-            int newId = tasksSet.Count > 0 ? tasksSet.Max(t => t.Id) + 1 : 1;
-            tasks.Id = newId;
+            /*int newId = tasksSet.Count > 0 ? tasksSet.Max(t => t.Id) + 1 : 1;*/
+            /*tasks.Id = newId;*/
 
             tasksSet.Add(tasks);
 
