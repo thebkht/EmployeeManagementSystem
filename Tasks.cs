@@ -23,10 +23,10 @@ namespace EmployeeManagementSystem
             AssignedTo = assignedTo;
             CompletionTime = null;
         }
-
+        
         public void Display()
         {
-            Console.WriteLine($"{Id, -5} {Description, -48} {(isCompleted ? "'Completed'" : "'Not completed'"), -15} {DueDate.ToString("dddd HH:mm"), -15} {AssignedTo, -30}");
+            Console.WriteLine($"{Id, -5} {Description, -48} {(isCompleted ? "Completed" : "Not completed"), -15} {DueDate.ToString("dddd HH:mm"), -15} {AssignedTo, -30}");
         }
 
         public void MarkAsCompleted()

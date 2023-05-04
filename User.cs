@@ -15,8 +15,8 @@ namespace EmployeeManagementSystem
         public string Name { get; set; }
         public double HourlyRate { get; set; }
         public List<Tasks> AssignedTasks { get; set; }
-        public int CompletedTasks { get; set; }
-        public int UncompletedTasks { get; set; }
+        public int CompletedTasks { get; set; } = 0;
+        public int UncompletedTasks { get; set; } = 0;
         public bool IsEmployee { get; set; }
         public bool IsAdmin { get; set; }
 
@@ -27,8 +27,6 @@ namespace EmployeeManagementSystem
             Name = name;
             HourlyRate = rate;
             AssignedTasks = new List<Tasks>();
-            CompletedTasks = 0;
-            UncompletedTasks = 0;
             IsEmployee = isEmployee;
         }
 

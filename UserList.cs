@@ -80,5 +80,7 @@ namespace EmployeeManagementSystem
 
         public List<User> GetAllUsers() => userSet;
 
+        public List<User> GetAllEmployees() => userSet.Where(user => user.IsEmployee == true).ToList();
+
     }
 }

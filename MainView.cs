@@ -92,7 +92,8 @@ namespace EmployeeManagementSystem
             User currentEmployee = Auth.currentUser;
 
             Console.Clear();
-            Console.WriteLine($"{Greet()}, {currentEmployee.Name}\nTasks for {DateTime.Today.ToString("dddd")}:\n");
+            Console.WriteLine($"{Greet()},{currentEmployee.Name} You have {currentEmployee.CompletedTasks}/{currentEmployee.UncompletedTasks}");
+            Console.WriteLine($"\nTasks for {DateTime.Today.ToString("dddd")}:\n");
 
             if (Program.tasksList.GetAllTasks().Any())
             {
@@ -221,7 +222,7 @@ namespace EmployeeManagementSystem
                     case '3':
                         Console.WriteLine("\n========== Employee List ==========");
                         Console.WriteLine("{0,-5} {1,-15} {2,-20} {3,-20}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
-                        foreach (User emp in employees.GetAllUsers())
+                        foreach (User emp in employees.GetAllEmployees())
                         {
                             emp.Display();
                         }
@@ -247,7 +248,7 @@ namespace EmployeeManagementSystem
         {
             if (task != null)
             {
-                Program.tasksList.GetAllTasks().Add(task);
+                Program.tasksList.AddTask(task);
                 if (employee != null)
                 {
                     employee.AssignedTasks.Add(task);
@@ -287,17 +288,20 @@ namespace EmployeeManagementSystem
                         Console.WriteLine("Enter a description for the new task: ");
                         string desc = Console.ReadLine();
 
-                    if (desc == "")
-                    {
-                        desc = "Untitled task";
-                    }
+                        if (desc == "")
+                        {
+                            desc = "Untitled task";
+                        }
 
-                        Console.WriteLine("Enter the due date for the new task (MM/DD/YYYY): ");
+                        Console.WriteLine("Enter the due date for the new task (MM/DD/YYYY hh:mm): ");
                         DateTime due = DateTime.Parse(Console.ReadLine());
-
+                        if (due == null)
+                        {
+                            due = DateTime.Today;
+                        }
                         Console.WriteLine("Enter an ID to assign the employee: ");
                         Console.WriteLine("{0,-5} {1,-15} {2,-25} {3,-25}", "ID", "Name", "Completed Tasks", "Uncompleted Tasks");
-                        foreach (User emp in Program.userList.GetAllUsers())
+                        foreach (User emp in Program.userList.GetAllEmployees())
                         {
                             emp.Display();
                         }
