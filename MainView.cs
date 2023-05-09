@@ -95,7 +95,7 @@ namespace EmployeeManagementSystem
             Console.WriteLine($"{Greet()},{currentEmployee.Name} You have {currentEmployee.CompletedTasks}/{currentEmployee.UncompletedTasks}");
             Console.WriteLine($"\nTasks for {DateTime.Today.ToString("dddd")}:\n");
 
-            if (Program.tasksList.GetAllTasks().Any())
+            if (Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date).Any())
             {
                 Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
@@ -199,9 +199,19 @@ namespace EmployeeManagementSystem
                         Console.WriteLine($"Password for this employee: {empPassword}");
                         Console.Write("Enter Employee Salary: ");
                         double empSalary = double.Parse(Console.ReadLine());
-                        User newUsr = new User(empUsername, empPassword, empName, empSalary, true);
-                        employees.AddUser(newUsr);
-                        Console.WriteLine("\nEmployee Added Successfully!");
+                        try
+                        {
+                            User newUsr = new User(empUsername, empPassword, empName, empSalary, true);
+                            employees.AddUser(newUsr);
+                            Console.WriteLine("\nEmployee Added Successfully!");
+                        } catch (DublicateUsernameException e)
+                        {
+                            Console.WriteLine($"Error: {e.Message}");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"Error: {e.Message}");
+                        }
                         ManageEmployees();
                         break;
 

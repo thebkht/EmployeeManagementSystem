@@ -17,6 +17,10 @@ namespace EmployeeManagementSystem
 
         public void AddUser(User user)
         {
+            if (userSet.Any(e => e.Username == user.Username))
+            {
+                throw new DublicateUsernameException("Username already exists in the system.");
+            }
             // Generate a new unique ID
             int newId = userSet.Count > 0 ? userSet.Max(usr => user.Id) + 1 : 1;
             user.Id = newId;
