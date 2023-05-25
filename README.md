@@ -1,23 +1,33 @@
 # Employee Management System
 
-This is a command-line tool for managing employees and tasks in a company. It allows administrators to add, remove, and edit employee information, as well as create and manage tasks for the employees.
+The Employee Management System is a Windows application that allows users to manage employee records and tasks. It provides functionalities such as adding new employees, assigning tasks, tracking task completion, and generating reports.
 
 ## Features
 
-- Add, remove, and edit employee information
-- Create, assign, and manage tasks for employees
-- Greet employees based on time of day
-- Easy-to-use command-line interface
-- Data persistence using CSV files
+- User Authentication: Users can log in with their credentials to access the system.
+- Employee Management: Add, update, and delete employee records.
+- Task Assignment: Assign tasks to employees and track their progress.
+- Task Completion: Mark tasks as completed and track completion time.
 
-## Usage
+## Technologies Used
 
-To use this tool, simply download the source code and compile it using a C# compiler. Then run the resulting executable file from the command line.
+- C#: Used as the programming language for the application logic.
+- Windows Forms: Used for creating the user interface and handling user interactions.
+- .NET Framework: Provides the underlying framework for building Windows applications.
+
+## Getting Started
+
+1. Clone the repository: `git clone https://github.com/yusupovbg/EmployeeManagementSystem.git`
+2. Open the solution file (`EmployeeManagementSystem.sln`) in Visual Studio.
+3. Make sure you have the necessary dependencies and packages installed.
+4. Update the database connection string in the `app.config` file.
+5. Build the solution.
+6. Run the application by clicking the "Start" button or pressing F5.
 
 ## Contributing
 
-If you would like to contribute to this project, feel free to fork it and submit a pull request. Contributions are always welcome!
+Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the [MIT License](LICENSE).
