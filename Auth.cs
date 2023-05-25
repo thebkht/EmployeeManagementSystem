@@ -1,5 +1,4 @@
-﻿using Intercom.Data;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace EmployeeManagementSystem
 {
     internal class Auth
     {
-        public static bool isLoggedIn = false;
+        public static bool isLoggedIn;
         public static User currentUser;
         /*public static bool isUserEmp = false;
         public static bool isUserAdmin = false;*/

@@ -95,11 +95,11 @@ namespace EmployeeManagementSystem
             Console.WriteLine($"{Greet()},{currentEmployee.Name} You have {currentEmployee.CompletedTasks}/{currentEmployee.UncompletedTasks}");
             Console.WriteLine($"\nTasks for {DateTime.Today.ToString("dddd")}:\n");
 
-            if (Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date).Any())
+            if (currentEmployee.AssignedTasks.Where(item => item.DueDate.Date == DateTime.Today.Date).Any())
             {
                 Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
-                foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
+                foreach (Tasks item in currentEmployee.AssignedTasks.Where(item => item.DueDate.Date == DateTime.Today.Date))
                     item.Display();
             }
             else
@@ -277,13 +277,11 @@ namespace EmployeeManagementSystem
             Console.Clear();
             Console.WriteLine("\n======= Tasks Management =======");
 
-            var tasksForToday = Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date).ToList();
-
-            if (tasksForToday.Any())
+            if (Program.tasksList.GetAllTasks().Any())
             {
                 Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
-                foreach (Tasks item in tasksForToday)
+                foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
                     item.Display();
             }
 

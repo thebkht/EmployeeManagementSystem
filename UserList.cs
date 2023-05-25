@@ -21,12 +21,14 @@ namespace EmployeeManagementSystem
             {
                 throw new DublicateUsernameException("Username already exists in the system.");
             }
-            // Generate a new unique ID
-            int newId = userSet.Count > 0 ? userSet.Max(usr => usr.Id) + 1 : 1;
-            user.Id = newId;
+            else
+            {
+                // Generate a new unique ID
+                int newId = userSet.Any() ? (userSet.Max(usr => usr.Id) + 1) : 0;
+                user.Id = newId;
 
-            userSet.Add(user);
-
+                userSet.Add(user);
+            }
         }
 
         public bool RemoveUser(int id)
@@ -60,6 +62,18 @@ namespace EmployeeManagementSystem
             foreach (User user in userSet)
             {
                 if (user.Id == id)
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
+
+        public User GetByUsername(string username)
+        {
+            foreach (User user in userSet)
+            {
+                if (user.Username == username)
                 {
                     return user;
                 }
