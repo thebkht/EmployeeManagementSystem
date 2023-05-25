@@ -6,11 +6,28 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <StartupObject>EmployeeManagementSystem.Program</StartupObject>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Company>bkhtdev</Company>
+    <Title>Employee Management System</Title>
+    <RepositoryUrl>https://github.com/yusupovbg/EmployeeManagementSystem</RepositoryUrl>
+    <PackageIcon>Asset 2 ems.png</PackageIcon>
+    <ApplicationIcon>ems.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="dbo.Tasks.sql" />
     <None Remove="dbo.Users.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ems.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\byusu\OneDrive\Creative Cloud Files\1x\Asset 2 ems.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
