@@ -277,11 +277,13 @@ namespace EmployeeManagementSystem
             Console.Clear();
             Console.WriteLine("\n======= Tasks Management =======");
 
-            if (Program.tasksList.GetAllTasks().Any())
+            var tasksForToday = Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date).ToList();
+
+            if (tasksForToday.Any())
             {
                 Console.WriteLine("{0, -5} {1, -48} {2, -15} {3, -15} {4, -30}", "ID", "Description", "Status", "Due Date", "Assigned To");
 
-                foreach (Tasks item in Program.tasksList.GetAllTasks().Where(item => item.DueDate.Date == DateTime.Today.Date))
+                foreach (Tasks item in tasksForToday)
                     item.Display();
             }
 

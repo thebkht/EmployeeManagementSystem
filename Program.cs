@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -12,9 +13,31 @@ namespace EmployeeManagementSystem
         public static MainView mainView;
         public static TaskList tasksList;
         public static UserList userList;
+        public static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=E:\\REPOS\\EMPLOYEEMANAGEMENTSYSTEM\\DATABASE.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
         static void Main(string[] args)
         {
             Console.Title = "Employee Management System (version 1.0.0.0)";
+
+            /*using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                // SQL commands will be executed here
+
+                string sql = "INSERT INTO Person (Name, Age) VALUES (@Name, @Age)";
+
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    foreach (Person person in people)
+                    {
+                        command.Parameters.AddWithValue("@Name", person.Name);
+                        command.Parameters.AddWithValue("@Age", person.Age);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }*/
+
+
 
             List<User> users = new List<User>();
             List<Tasks> tasks = new List<Tasks>();

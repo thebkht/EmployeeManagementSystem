@@ -9,7 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="dbo.Tasks.sql" />
+    <None Remove="dbo.Users.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Intercom.Dotnet.Client" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
   </ItemGroup>
 
   <ItemGroup>

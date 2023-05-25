@@ -22,7 +22,7 @@ namespace EmployeeManagementSystem
                 throw new DublicateUsernameException("Username already exists in the system.");
             }
             // Generate a new unique ID
-            int newId = userSet.Count > 0 ? userSet.Max(usr => user.Id) + 1 : 1;
+            int newId = userSet.Count > 0 ? userSet.Max(usr => usr.Id) + 1 : 1;
             user.Id = newId;
 
             userSet.Add(user);
