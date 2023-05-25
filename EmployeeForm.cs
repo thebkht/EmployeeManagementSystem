@@ -10,20 +10,14 @@ using System.Windows.Forms;
 
 namespace EmployeeManagementSystem
 {
-    public partial class EmployeeFrom : Form
+    public partial class EmployeeForm : Form
     {
         User currentEmployee = Auth.currentUser;
 
-        public EmployeeFrom()
+        public EmployeeForm()
         {
             InitializeComponent();
-        }
-
-        private void EmployeeFrom_Load(object sender, EventArgs e)
-        {
-
             tasks.DataSource = Program.tasksList.GetAllTasks().Where(t => t.AssignedTo == currentEmployee.Name).ToList();
-
             label1.Text = $"{Program.mainView.Greet()}, {currentEmployee.Name} You have {currentEmployee.CompletedTasks}/{currentEmployee.UncompletedTasks}";
         }
 

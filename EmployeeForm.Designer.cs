@@ -1,6 +1,6 @@
 ﻿namespace EmployeeManagementSystem
 {
-    partial class EmployeeFrom
+    partial class EmployeeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeFrom));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeForm));
             menuStrip1 = new MenuStrip();
             changePasswordToolStripMenuItem = new ToolStripMenuItem();
             vIewProfileToolStripMenuItem = new ToolStripMenuItem();
@@ -169,7 +169,6 @@
             MainMenuStrip = menuStrip1;
             Name = "EmployeeFrom";
             Text = "EmployeeFrom";
-            Load += EmployeeFrom_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)tasks).EndInit();

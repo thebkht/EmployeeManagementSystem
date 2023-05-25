@@ -20,6 +20,7 @@ namespace EmployeeManagementSystem
                 if (i.Username == usr && i.Password == pwd)
                 {
                     isValid = true;
+                    Auth.currentUser = i;
                     break;
 
                 }
@@ -36,16 +37,9 @@ namespace EmployeeManagementSystem
                 }
                 else
                 {
-                    foreach (User i in Program.userList.GetAllUsers())
-                    {
-                        if (usr == i.Username && pwd == i.Password)
-                        {
-                            Auth.currentUser = i;
-                            this.Hide();
-                            EmployeeFrom empForm = new();
-                            empForm.Show();
-                        }
-                    }
+                    this.Hide(); 
+                    var empForm = new EmployeeForm();
+                    empForm.Show();
                 }
                 username.Clear();
                 password.Clear();
