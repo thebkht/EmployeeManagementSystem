@@ -1,6 +1,3 @@
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Diagnostics;
-
 namespace EmployeeManagementSystem
 {
     using System.Windows.Forms;

@@ -1,5 +1,3 @@
-using Microsoft.VisualBasic.ApplicationServices;
-
 namespace EmployeeManagementSystem
 {
     public partial class Login : System.Windows.Forms.Form
