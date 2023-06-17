@@ -6,8 +6,8 @@ The Employee Management System is a Windows application that allows users to man
 
 - User Authentication: Users can log in with their credentials to access the system.
 - Employee Management: Add, update, and delete employee records.
-- Task Assignment: Assign tasks to employees and track their progress.
-- Task Completion: Mark tasks as completed and track completion time.
+- Task Assignment: Assign tasks to employees, set due dates, and track their completion status.
+- Task Tracking: Monitor task progress, track completion time, and view detailed task information.
 
 ## Technologies Used
 
@@ -19,10 +19,9 @@ The Employee Management System is a Windows application that allows users to man
 
 1. Clone the repository: `git clone https://github.com/yusupovbg/EmployeeManagementSystem.git`
 2. Open the solution file (`EmployeeManagementSystem.sln`) in Visual Studio.
-3. Make sure you have the necessary dependencies and packages installed.
-4. Update the database connection string in the `app.config` file.
-5. Build the solution.
-6. Run the application by clicking the "Start" button or pressing F5.
+3. Install any required dependencies or packages.
+4. Build the solution.
+5. Run the application by clicking the "Start" button or pressing F5.
 
 ## Contributing
 
